@@ -3,10 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import MuseUi from 'muse-ui'
-import 'muse-ui/dist/muse-ui.css'
+import Axios from 'axios'
+import Vant from 'vant'
+import 'vant/lib/vant-css/index.css'
 Vue.config.productionTip = false
-Vue.use(MuseUi)
+Vue.use(Vant)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
