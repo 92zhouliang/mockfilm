@@ -6,7 +6,10 @@ import router from './router'
 import Axios from 'axios'
 import Vant from 'vant'
 import 'vant/lib/vant-css/index.css'
+import {fetch,post} from './assets/baseJs/http.js'
 Vue.config.productionTip = false
+Vue.prototype.$fetch=fetch
+Vue.prototype.$post=post
 Vue.use(Vant)
 
 /* eslint-disable no-new */
