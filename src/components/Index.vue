@@ -1,15 +1,15 @@
 <template>
 
   <div id='index'>
-    <van-nav-bar :title="title" class="navbar-title"/>
-    <van-nav-bar>
-  <div slot="left">区域选择</div>
-  <div slot="title">
-    
-  </div>
-  <van-icon name="search" slot='right' @click="searchMov"/>
-</van-nav-bar>
-    <van-list v-model="loading" :finished="finished" @load="onLoad">
+    <van-nav-bar :title="title" class="navbar-title" fixed/>
+    <!-- <van-nav-bar fixed>
+      <div slot="left">区域选择</div>
+      <div slot="title">
+
+      </div>
+      <van-icon name="search" slot='right' />
+    </van-nav-bar> -->
+    <van-list v-model="loading" :finished="finished" @load="onLoad" style='margin: 55px 0;'>
       <van-card v-for="(item,index) in listObj.listData" :key="index" :title="item.nm" :thumb="item.img.replace('w.h','128.180')">
         <div slot='desc' class="text-left desc-content">
           <div class="score line-ellipsis" v-if='item.globalReleased'>
@@ -117,7 +117,7 @@
     name: 'index',
     data() {
       return {
-        title: '1111',
+        title: '观影',
         loading: false,
         finished: true,
         listObj: {
