@@ -9,34 +9,39 @@
       </div>
       <van-icon name="search" slot='right' />
     </van-nav-bar> -->
-    <van-list v-model="loading" :finished="finished" @load="onLoad" style='margin: 55px 0;'>
+    <van-list v-model="loading" :finished="finished" @load="onLoad" class="marTB50">
       <van-card v-for="(item,index) in listObj.listData" :key="index" :title="item.nm" :thumb="item.img.replace('w.h','128.180')">
+
         <div slot='desc' class="text-left desc-content">
-          <div class="score line-ellipsis" v-if='item.globalReleased'>
-            <span class="score-suffix">观众评 </span>
-            <span class="grade">{{item.sc}}</span>
-            <div class="actor line-ellipsis">主演: {{item.star}}</div>
-            <div class="show-info line-ellipsis">{{item.showInfo}}</div>
-          </div>
-          <div class="score line-ellipsis" v-else>
-            <span class="grade">{{item.wish}}</span>
-            <span class="score-suffix">人想看 </span>
-            <div class="actor line-ellipsis">主演: {{item.star}}</div>
-            <div class="show-info line-ellipsis">{{item.showInfo}}</div>
-          </div>
-          <div class="button-block" v-if='item.globalReleased'>
-
-            <div class="btn normal">
-              <span class="fix" data-bid="dp_wx_home_movie_btn">预售</span>
+          <router-link :to="'/movieDetail/'+item.id">
+            <div class="score line-ellipsis" v-if='item.globalReleased'>
+              <span class="score-suffix">观众评 </span>
+              <span class="grade">{{item.sc}}</span>
+              <div class="actor line-ellipsis">主演: {{item.star}}</div>
+              <div class="show-info line-ellipsis">{{item.showInfo}}</div>
             </div>
-
-          </div>
-          <div class="button-block" v-else>
-            <div class="btn pre">
-              <span class="fix" data-bid="dp_wx_home_movie_btn">预售</span>
+            <div class="score line-ellipsis" v-else>
+              <span class="grade">{{item.wish}}</span>
+              <span class="score-suffix">人想看 </span>
+              <div class="actor line-ellipsis">主演: {{item.star}}</div>
+              <div class="show-info line-ellipsis">{{item.showInfo}}</div>
             </div>
-          </div>
+            <div class="button-block" v-if='item.globalReleased'>
+
+              <div class="btn normal">
+                <span class="fix" data-bid="dp_wx_home_movie_btn">购票</span>
+              </div>
+
+            </div>
+            <div class="button-block" v-else>
+              <div class="btn pre">
+                <span class="fix" data-bid="dp_wx_home_movie_btn">预售</span>
+              </div>
+            </div>
+          </router-link>
         </div>
+
+
 
       </van-card>
     </van-list>
@@ -46,12 +51,6 @@
 </template>
 <style lang="less" scoped>
   @import './../assets/less/base.less';
-  .line-ellipsis {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
   .van-card__title {
     font-size: 17px;
     color: #333;

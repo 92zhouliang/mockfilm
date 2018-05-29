@@ -8,7 +8,7 @@
         </template>
       </van-tabbar-item>
       <van-tabbar-item icon="chat">影院</van-tabbar-item>
-      <van-tabbar-item icon="records">我的</van-tabbar-item>
+      <van-tabbar-item icon="contact">我的</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
