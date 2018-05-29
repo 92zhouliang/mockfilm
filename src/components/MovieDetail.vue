@@ -4,7 +4,7 @@
     <div class='marTB50'>
       <div class="movie-detail">
         <div class="movie-filter"></div>
-        <!-- <div class="poster-bg" :style="albumImg"></div> -->
+        <div class="poster-bg" :style="albumImg"></div>
         <div class="detail box-flex">
           <div class="poster" v-cloak>
             <img :src="detailMovie.img.replace('w.h','128.180')"/>
@@ -133,7 +133,7 @@
     },
     computed:{
         sunmTofixed(){
-            if(this.detailMovie.snum)return (this.detailMovie.snum/10000);
+            if(this.detailMovie.snum)return (this.detailMovie.snum/10000).toFixed(1);
         }
     },
     methods: {
