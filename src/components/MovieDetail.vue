@@ -4,10 +4,10 @@
     <div class='marTB50'>
       <div class="movie-detail">
         <div class="movie-filter"></div>
-        <div class="poster-bg" :style="albumImg"></div>
+        <div class="poster-bg" :style="showalbumImg"></div>
         <div class="detail box-flex">
           <div class="poster" v-cloak>
-            <img :src="detailMovie.img.replace('w.h','128.180')"/>
+            <img :src="detailMovie.img.replace('w.h','128.180')" />
           </div>
           <div class="content flex">
             <div class="title middle line-ellipsis">{{detailMovie.nm}}</div>
@@ -119,35 +119,94 @@
 
 </style>
 <script>
+  const CurentTime = function () { /*获取日期 yyyy-mm-dd */
+    var now = new Date();
+
+    var year = now.getFullYear(); //年
+    var month = now.getMonth() + 1; //月
+    var day = now.getDate(); //日
+
+    // var hh = now.getHours();            //时
+    // var mm = now.getMinutes();          //分
+
+    var clock = year + "-";
+
+    if (month < 10)
+      clock += "0";
+
+    clock += month + "-";
+
+    if (day < 10)
+      clock += "0";
+    clock += day;
+    return (clock);
+  }
+  const timeToWeek = function (time) {
+    /*获取日期 yyyy-mm-dd */
+    let date = new Date(time);
+    let Week = ['日', '一', '二', '三', '四', '五', '六'];
+    return '周' + Week[date.getDay()];
+  }
   export default {
     name: 'MovieDetail',
     data() {
       return {
+
         title: '',
-        albumImg:'',
+        albumImg: '',
         detailMovie: null,
+        showDays:[],
+        formData: {
+          movieId: '',
+          day: '',
+          offset: 0,
+          limit: 20,
+          districtId: -1,
+          lineId: -1,
+          hallType: -1,
+          brandId: -1,
+          serviceId: -1,
+          areaId: -1,
+          stationId: -1,
+          item: '',
+          updateShowDay: true,
+          reqId: 1527665979150,
+          cityId: 10
+        }
       }
     },
     mounted() {
       this.getMovieDetail()
     },
-    computed:{
-        sunmTofixed(){
-            if(this.detailMovie.snum)return (this.detailMovie.snum/10000).toFixed(1);
-        }
+    computed: {
+      sunmTofixed() {
+        if (this.detailMovie.snum) return (this.detailMovie.snum / 10000).toFixed(1);
+      },
+      showalbumImg() {
+        if (this.albumImg) return 'background-image:url(' + this.albumImg + ')';
+      }
     },
     methods: {
       getMovieDetail() {
         this.$fetch('/maoyan/ajax/detailmovie', {
           movieId: this.$route.params.movieDetailId
         }).then((res) => {
-            console.log(res);
+          console.log(res);
           this.detailMovie = res.detailMovie;
           this.title = res.detailMovie.nm;
-          console.log(res.detailMovie.albumImg);
-          this.albumImg=res.detailMovie.albumImg;
+          this.albumImg = res.detailMovie.albumImg;
+          this.movieForceUpdate(CurentTime());
         }).catch((er) => {
           console.log(er);
+        })
+      },
+      movieForceUpdate(day) {
+        this.formData.movieId = this.detailMovie.id;
+        this.formData.day = day;
+        this.$post('/maoyan/ajax/movie?forceUpdate=' + (new Date()).valueOf(), this.formData).then((res) => {
+          console.log(res);
+        }).catch((err) => {
+          //
         })
       }
     }
